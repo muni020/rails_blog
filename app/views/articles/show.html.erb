@@ -1,0 +1,32 @@
+<h4 class="text-center mb-4">Here is The Single Article</h4>
+
+<div class="container my-5">
+  <ul class="list-inline mb-4">
+    <li class="list-inline-item">
+      <%= link_to "Edit", edit_article_path(@article), class: "btn btn-outline-primary" %>
+    </li>
+    <li class="list-inline-item">
+      <%= link_to "Destroy", article_path(@article), data: { 
+                    turbo_method: :delete, 
+                    turbo_confirm: "Are you sure?" 
+                  }, class: "btn btn-outline-danger" %>
+    </li>
+  </ul>
+
+  <h1 class="display-4 mb-3"><%= @article.title %></h1>
+  <h2 class="lead"><%= @article.body %></h2>
+</div>
+<h2>Add a comment:</h2>
+<%= form_with model: [ @article, @article.comments.build ] do |form| %>
+  <p>
+    <%= form.label :commenter %><br>
+    <%= form.text_field :commenter %>
+  </p>
+  <p>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
