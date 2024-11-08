@@ -14,6 +14,7 @@ class ArticlesController < ApplicationController
    show_request_details
     p "pppppppp-------- #{params[:id]}"
      @article = Article.find(params[:id])
+    #  if id not exist it will through error.
      p "One Article : #{@article}"
   end
 
