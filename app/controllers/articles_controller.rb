@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+  
   def index
    show_request_details
   @articles = Article.all
@@ -54,28 +55,29 @@ class ArticlesController < ApplicationController
      end
   end
 
+  def destroy
+    p "Here is delete Method==========================="
+    @article = Article.find(params[:id])
+    @article.destroy
+
+    redirect_to root_path, status: :see_other
+  end
+
+
   private
     def article_params
       p "Params Require Method --------------    #{params}"
-      params.require(:article).permit(:title, :body)
+      params.require(:article).permit(:title, :body, :status)
     end
 
-   public
-    def destroy
-      p "Here is delete Method==========================="
-      @article = Article.find(params[:id])
-      @article.destroy
-  
-      redirect_to root_path, status: :see_other
-    end
 
-    def show_request_details
-      p "==================Request Start=================="
-      p "Request Method: #{request.request_method}"
-      p "Request Path: #{request.path}"
-      p "Request Full URL: #{request.url}"
-      p "Request Parameters: #{request.params.inspect}"
-      p "Request Headers: #{request.headers.env.select { |k, _| k.start_with?('HTTP_') }.inspect}"
-      p "==================Request End=================="
-    end
+  def show_request_details
+    p "==================Request Start=================="
+    p "Request Method: #{request.request_method}"
+    p "Request Path: #{request.path}"
+    p "Request Full URL: #{request.url}"
+    p "Request Parameters: #{request.params.inspect}"
+    p "Request Headers: #{request.headers.env.select { |k, _| k.start_with?('HTTP_') }.inspect}"
+    p "==================Request End=================="
+  end
 end

@@ -16,17 +16,10 @@
   <h1 class="display-4 mb-3"><%= @article.title %></h1>
   <h2 class="lead"><%= @article.body %></h2>
 </div>
+<h2>Comments</h2>
+<div class="container mb-5"> 
+<%= render partial: "/comments/comment", collection: @article.comments %>
+</div>
+
 <h2>Add a comment:</h2>
-<%= form_with model: [ @article, @article.comments.build ] do |form| %>
-  <p>
-    <%= form.label :commenter %><br>
-    <%= form.text_field :commenter %>
-  </p>
-  <p>
-    <%= form.label :body %><br>
-    <%= form.text_area :body %>
-  </p>
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
+<%= render partial: "/comments/new_comment_form", locals: {article: @article} %>
